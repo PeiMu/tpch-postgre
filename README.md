@@ -12,10 +12,10 @@ The following modifications have been added on top of the official TPC-H kit:
 * modify `dbgen` to not print trailing delimiter
 * add option for `dbgen` to output to stdout
 * add compile support for macOS
-* add define for PostgreSQL to support `LIMIT N` for `qgen`
+* ~~add define for PostgreSQL to support `LIMIT N` for `qgen`~~ Deleted since PostgreSQL 14.10 doesn't support this
 * adjust `Makefile` defaults
 
-## Setup
+## Pre-Request
 
 ### Linux
 
@@ -31,14 +31,6 @@ CentOS/RHEL:
 sudo yum install git make gcc
 ```
 
-Then run the following commands to clone the repo and build the tools:
-
-```
-git clone https://github.com/gregrahn/tpch-kit.git
-cd tpch-kit/dbgen
-make MACHINE=LINUX DATABASE=POSTGRESQL
-```
-
 ### macOS
 
 Make sure the required development tools are installed:
@@ -49,23 +41,48 @@ xcode-select --install
 
 Then run the following commands to clone the repo and build the tools:
 
-```
-git clone https://github.com/gregrahn/tpch-kit.git
-cd tpch-kit/dbgen
-make MACHINE=MACOS DATABASE=POSTGRESQL
+## Using this tool
+### Prepare Data
+```bash
+git clone git@github.com:PeiMu/tpch-postgre.git
+
+cd tpch-postgre/dbgen/
+
+# set env configs and compile
+source ./compile.sh
+
+# generate data
+./dbgen -vf -s 1 
+
+# start service
+sudo systemctl start postgresql.service
+
+# create database
+sudo -u postgres psql -c "create database tpch;"
+
+# switch database
+sudo -u postgres psql -c "\c tpch"
+
+# create tables
+sudo -u postgres psql < dss.ddl
+
+# load data
+bash ./load_data.sh
+mkdir out/queries
+
+# generate queries
+bash ./generate_queries.sh
+
+# delete `(3)` manually
+vi out/queries/1.sql
+
+# execute queries
+bash ./execute_queries.sh
 ```
 
-## Using the TPC-H tools
 
-### Environment
 
-Set these env variables correctly:
-
-```
-export DSS_CONFIG=/.../tpch-kit/dbgen
-export DSS_QUERY=$DSS_CONFIG/queries
-export DSS_PATH=/path-to-dir-for-output-files
-```
+## Notes
 
 ### SQL dialect
 
