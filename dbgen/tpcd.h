@@ -54,7 +54,7 @@
 #define START_TRAN      "start transaction"
 #define END_TRAN        "commit;"
 #define SET_OUTPUT      ""
-#define SET_ROWCOUNT    "limit %d;\n"
+#define SET_ROWCOUNT    ""
 #define SET_DBASE       ""
 #endif /* POSTGRESQL */
 
