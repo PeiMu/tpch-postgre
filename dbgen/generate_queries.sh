@@ -45,6 +45,6 @@ for i in {1..22}; do
   echo "${timer_end}" >> out/queries/${i}.sql
 
   ### replace `select` by `perform`
-  sed -i 's/select/perform/gI' out/queries/${i}.sql
+  sed -i '0,/select/{s//perform/}' out/queries/${i}.sql
 done
 
