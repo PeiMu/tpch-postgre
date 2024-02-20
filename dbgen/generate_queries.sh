@@ -44,7 +44,7 @@ for i in {1..22}; do
 #  sed -i -e "\$a\\${insert_code_end}" out/queries/${i}.sql
   echo "${timer_end}" >> out/queries/${i}.sql
 
-  ### replace `select` by `perform`
+  ### replace first `select` by `perform`
   sed -i '0,/select/{s//perform/}' out/queries/${i}.sql
 done
 
