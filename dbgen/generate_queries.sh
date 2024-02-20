@@ -1,6 +1,11 @@
 mkdir -p out/queries
 
 timer_begin='
+set max_parallel_workers = 0;
+set effective_cache_size to '\''8 GB'\'';
+set statement_timeout = '\''1000s'\'';
+
+
 DO
 $do$
 DECLARE
