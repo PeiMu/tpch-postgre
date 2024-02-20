@@ -15,6 +15,14 @@ The following modifications have been added on top of the official TPC-H kit:
 * ~~add define for PostgreSQL to support `LIMIT N` for `qgen`~~ Deleted since PostgreSQL 14.10 doesn't support this
 * adjust `Makefile` defaults
 
+
+### Modifications based on QuerySplit
+
+The following modifications have been added based on a SOTA paper. Ignore the related scripts for the common use.
+
+* add some environment settings, in `generate_pure_queries.sh` and `generate_queries.sh`
+* generate QuerySplit configs, in `generate_query_split.sh`
+
 ## Pre-Request
 
 ### Linux
@@ -57,20 +65,24 @@ source ./compile.sh
 # start service
 sudo systemctl start postgresql.service
 
-# create database
+# create database (optional)
 sudo -u postgres psql -c "create database tpch;"
 
-# switch database
+# switch database (optional)
 sudo -u postgres psql -c "\c tpch"
 
-# create tables
+# create tables (optional)
 sudo -u postgres psql < dss.ddl
 
 # load data
 bash ./load_data.sh
-mkdir out/queries
 
-# generate queries
+# generate pure_quries (without timing functions, but has environment settings)
+# please remove the environment settings for the common use
+bash ./generate_pure_queries.sh
+
+# generate queries (with timing functions and environment settings)
+# please remove the environment settings for the common use
 bash ./generate_queries.sh
 
 # delete `(3)` manually
