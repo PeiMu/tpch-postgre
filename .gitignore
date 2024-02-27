@@ -2,4 +2,3 @@
 *.tbl
 dbgen/dbgen
 dbgen/qgen
-dbgen/out
