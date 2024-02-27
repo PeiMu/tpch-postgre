@@ -41,7 +41,7 @@ insert_code_end=$(echo "${timer_end}" | sed "s/'/\\\\'/g")
 
 for i in {1..22}; do
   ### add timer_begin
-  ./qgen -v -c -d -s 1 ${i} > out/queries/${i}.sql
+  ./qgen -v -c -d -s 3 ${i} > out/queries/${i}.sql
   sed -i "1s/^/${insert_code_begin}/" out/queries/${i}.sql
 #  echo -e "${timer_begin}" | cat - out/queries/${i}.sql > temp && mv temp out/queries/${i}.sql
 

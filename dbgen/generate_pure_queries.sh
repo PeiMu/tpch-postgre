@@ -11,7 +11,7 @@ insert_code=$(echo "${QuerySplit_settings}" | sed ':a;N;$!ba;s/\n/\\n/g')
 
 for i in {1..22}; do
   ### add timer_begin
-  ./qgen -v -c -d -s 1 ${i} > out/pure_queries/${i}.sql
+  ./qgen -v -c -d -s 3 ${i} > out/pure_queries/${i}.sql
   sed -i "1s/^/${insert_code}/" out/pure_queries/${i}.sql
 done
 
