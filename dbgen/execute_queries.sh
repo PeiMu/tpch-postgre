@@ -4,6 +4,6 @@ iteration=10
 for i in {1.."${iteration}"}; do
   for sql in "${dir}"/*; do
     echo "execute ${sql}";
-    psql < "${sql}"; 2>&1|tee log.txt
+    psql -f "${sql}" 2>&1|tee -a skinner_explained_tpch-3.txt;
   done
 done
