@@ -77,6 +77,15 @@ sudo -u postgres psql < dss.ddl
 # load data
 bash ./load_data.sh
 
+# generate primary key
+psql -f pkeys.sql
+
+# generate foreign key
+psql -f fkeys.sql
+
+# generate index
+psql -f index.sql
+
 # generate pure_quries (without timing functions, but has environment settings)
 # please remove the environment settings for the common use
 bash ./generate_pure_queries.sh
